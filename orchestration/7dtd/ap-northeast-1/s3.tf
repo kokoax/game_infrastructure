@@ -14,5 +14,5 @@ resource "aws_s3_bucket_object" "Data_folder" {
 
 resource "aws_s3_bucket_object" "Save_folder" {
   bucket = aws_s3_bucket.buckup.id
-  key    = "Save/"
+  key    = "Saves/"
 }
