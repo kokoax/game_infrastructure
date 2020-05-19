@@ -35,15 +35,15 @@
   systemd:
     name: 7dtd_sync_start
     enabled: yes
-  notify: restart_7dtd_sync_start
+  notify: Restart 7dtd_sync_start
 - name: Enabled 7dtd_sync_stop
   systemd:
     name: 7dtd_sync_stop
     enabled: yes
-  notify: restart_7dtd_sync_stop
+  notify: Restart 7dtd_sync_stop
 - name: Enabled 7dtd_server
   systemd:
     name: 7dtd_server
     enabled: yes
-  notify: restart_7dtd_server
+  notify: Restart 7dtd_server
 # wip: shutdown after 6 hour
