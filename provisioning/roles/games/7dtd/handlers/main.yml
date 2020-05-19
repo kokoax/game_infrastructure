@@ -1,13 +1,13 @@
 ---
 - name: Restart 7dtd_sync_start
   systemd:
-    name: restart_7dtd_sync_start
+    name: 7dtd_sync_start
     state: restarted
 - name: Restart 7dtd_sync_stop
   systemd:
-    name: restart_7dtd_sync_stop
+    name: 7dtd_sync_stop
     state: restarted
 - name: Restart 7dtd_server
   systemd:
-    name: restart_7dtd_server
+    name: 7dtd_server
     state: restarted
