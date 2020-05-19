@@ -13,14 +13,14 @@ SUBSYS="/var/lock/subsys/save_data_sync"
 echo "[$(date)] : $1" >> ${LOGFILE}
 case "$1" in
   start)
-    /usr/local/bin/aws s3 sync --exact-timestamps ${DATA_SERVER} ${DATA_LOCAL} >> ${LOGFILE}
-    /usr/local/bin/aws s3 sync --exact-timestamps ${WORLD_SERVER} ${WORLD_LOCAL} >> ${LOGFILE}
+    /usr/bin/aws s3 sync --exact-timestamps ${DATA_SERVER} ${DATA_LOCAL} >> ${LOGFILE}
+    /usr/bin/aws s3 sync --exact-timestamps ${WORLD_SERVER} ${WORLD_LOCAL} >> ${LOGFILE}
 
     touch ${SUBSYS}
     ;;
   stop)
-    /usr/local/bin/aws s3 sync --exact-timestamps ${DATA_LOCAL} ${DATA_SERVER} >> ${LOGFILE}
-    /usr/local/bin/aws s3 sync --exact-timestamps ${WORLD_LOCAL} ${WORLD_SERVER} >> ${LOGFILE}
+    /usr/bin/aws s3 sync --exact-timestamps ${DATA_LOCAL} ${DATA_SERVER} >> ${LOGFILE}
+    /usr/bin/aws s3 sync --exact-timestamps ${WORLD_LOCAL} ${WORLD_SERVER} >> ${LOGFILE}
 
     rm -f ${SUBSYS}
     ;;

@@ -1,8 +1,4 @@
 ---
-- name: Set Facts use package manager to yum
-  set_fact:
-    ansible_facts:
-      pkg_mgr: dfn
 - name: Install packages
   yum:
     name: "{{ packages }}"
@@ -16,7 +12,6 @@
       - nc
       - tar
       - unzip
-  when: ansible_facts["pkg_mgr"] == "yum"
 - name: Install steamcmd
   unarchive:
       src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
