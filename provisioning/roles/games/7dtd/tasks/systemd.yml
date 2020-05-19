@@ -33,9 +33,9 @@
       daemon-reload: yes
 - name: Enabled 7dtd_sync_start
   systemd:
-    name: restart_7dtd_sync_start
+    name: 7dtd_sync_start
     enabled: yes
-  notify: Restart 7dtd_sync_start
+  notify: restart_7dtd_sync_start
 - name: Enabled 7dtd_sync_stop
   systemd:
     name: 7dtd_sync_stop
@@ -45,5 +45,5 @@
   systemd:
     name: 7dtd_server
     enabled: yes
-  notify: 7dtd_server
+  notify: restart_7dtd_server
 # wip: shutdown after 6 hour
