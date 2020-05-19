@@ -3,8 +3,8 @@
 # description: STARTSTOP SHELL
 
 DATA_LOCAL="/root/7dtd/7DaysToDie/Data"
-DATA_SERVER="s3://7dtd-backup/Data"
 WORLD_LOCAL="/root/7dtd/7DaysToDie/Saves"
+DATA_SERVER="s3://7dtd-backup/Data"
 WORLD_SERVER="s3://7dtd-backup/Saves"
 LOGFILE="/var/log/save_data_sync_7dtd.log"
 SUBSYS="/var/lock/subsys/save_data_sync"
