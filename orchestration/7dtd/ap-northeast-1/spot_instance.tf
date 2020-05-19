@@ -8,7 +8,7 @@ resource "aws_key_pair" "access_7dtd_instance" {
 }
 
 resource "aws_spot_instance_request" "_7dtd_spot_instance_request" {
-  ami           =	"ami-0b188cafb670c73ed"
+  ami           =	"ami-03fc1fc572d06fd11"
   instance_type = "c5.large"
   subnet_id     = aws_subnet.public.id
   spot_price = "0.1"

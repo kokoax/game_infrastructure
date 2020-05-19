@@ -19,7 +19,7 @@ resource "aws_iam_role" "instance_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "access_to_buckup_s3_bucket" {
+resource "aws_iam_role_policy" "access_to_backup_s3_bucket" {
   name   = "iam_role_policy"
   role   = aws_iam_role.instance_role.id
   policy = <<EOF
@@ -34,8 +34,8 @@ resource "aws_iam_role_policy" "access_to_buckup_s3_bucket" {
         "s3:PutObject"
       ],
       "Resource": [
-        "arn:aws:s3:::7dtd-buckup",
-        "arn:aws:s3:::7dtd-buckup/*"
+        "arn:aws:s3:::7dtd-backup",
+        "arn:aws:s3:::7dtd-backup/*"
       ]
     }
   ]
