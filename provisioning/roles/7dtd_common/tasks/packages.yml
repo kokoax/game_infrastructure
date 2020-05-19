@@ -1,0 +1,34 @@
+---
+- name: Set Facts use package manager to yum
+  set_fact:
+    ansible_facts:
+      pkg_mgr: dfn
+- name: Install packages
+  yum:
+    name: "{{ packages }}"
+    state: installed
+  vars:
+    packages:
+      - wget
+      - rsync
+      - gcc
+      - libstdc++.i686
+      - nc
+      - tar
+      - unzip
+  when: ansible_facts["pkg_mgr"] == "yum"
+- name: Install steamcmd
+  unarchive:
+      src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
+      dest: /usr/local/bin
+      remote_src: yes
+- name: Install 7dtd server
+  expect:
+    command: /usr/local/bin/steamcmd.sh
+    timeout: null
+    responses:
+      "Steam>":
+        - "login anonymous"
+        - "force_install_dir /root/7dtd"
+        - "app_update 294420 validate"
+        - "exit"

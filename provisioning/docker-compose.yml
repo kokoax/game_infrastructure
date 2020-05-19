@@ -1,0 +1,9 @@
+version: "2"
+services:
+  web:
+    image: amazonlinux:2
+    build: .
+    container_name: amazonlinux_systemd
+    privileged: true
+    ports:
+      - 8080:80

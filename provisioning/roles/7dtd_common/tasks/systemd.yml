@@ -1,0 +1,46 @@
+- name: Mkdir /root/.bin
+  file:
+    path: /root/.bin
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+- block:
+  - name: Copy /root/.bin/save_data_sync.sh
+    copy:
+      src: files/root/.bin/save_data_sync.sh
+      dest: /root/.bin/save_data_sync.sh
+      owner: root
+      group: root
+      mode: 0777
+  - name: Copy /etc/systemd/system/7dtd_sync_start.service
+    copy:
+      src: files/etc/systemd/system/7dtd_sync_start.service
+      dest: /etc/systemd/system/7dtd_sync_start.service
+  - name: Copy /etc/systemd/system/7dtd_sync_stop.service
+    copy:
+      src: files/etc/systemd/system/7dtd_sync_stop.service
+      dest: /etc/systemd/system/7dtd_sync_stop.service
+  - name: Copy /etc/systemd/system/7dtd_server.service
+    copy:
+      src: files/etc/systemd/system/7dtd_server.service
+      dest: /etc/systemd/system/7dtd_server.service
+  - name: Reload systemd unit files
+    systemd:
+      daemon-reload: yes
+- name: Enabled 7dtd_sync_start
+  systemd:
+    name: 7dtd_sync_start
+    enabled: yes
+  notify: Restart 7dtd_sync_start
+- name: Enabled 7dtd_sync_stop
+  systemd:
+    name: 7dtd_sync_stop
+    enabled: yes
+  notify: Restart 7dtd_sync_stop
+- name: Enabled 7dtd_server
+  systemd:
+    name: 7dtd_server
+    enabled: yes
+  notify: Restart 7dtd_server
+# wip: shutdown after 6 hour

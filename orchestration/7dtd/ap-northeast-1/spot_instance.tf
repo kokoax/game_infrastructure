@@ -8,11 +8,13 @@ resource "aws_key_pair" "access_7dtd_instance" {
 }
 
 resource "aws_spot_instance_request" "_7dtd_spot_instance_request" {
-  ami           = data.aws_ssm_parameter.amzn2_ami.value
+  ami           =	"ami-0b188cafb670c73ed"
   instance_type = "c5.large"
   subnet_id     = aws_subnet.public.id
-  spot_price = '0.1'
+  spot_price = "0.1"
   security_groups = [aws_security_group._7dtd_security_group.id]
+  iam_instance_profile = aws_iam_instance_profile.instance_profile.name
+  key_name = aws_key_pair.access_7dtd_instance.id
 
   tags = {
     Name = "7dtd-spot-instance"
@@ -32,9 +34,44 @@ resource "aws_security_group" "_7dtd_security_group" {
   }
 
   ingress {
-    from_port = 25565
-    to_port = 25565
+    from_port = 26900
+    to_port = 26900
     protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 26900
+    to_port = 26900
+    protocol = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 26901
+    to_port = 26901
+    protocol = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 26902
+    to_port = 26902
+    protocol = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 26903
+    to_port = 26903
+    protocol = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 

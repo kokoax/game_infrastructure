@@ -1,0 +1,10 @@
+[Unit]
+Description = 7dtd server
+After = network.target
+
+[Service]
+Type = simple
+ExecStart = /root/7dtd/startserver.sh -configfile=/root/7dtd/serverconfig.xml
+
+[Install]
+WantedBy = multi-user.target

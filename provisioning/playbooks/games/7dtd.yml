@@ -1,0 +1,5 @@
+---
+- hosts: server
+  tasks:
+  roles:
+  - 7dtd_common
