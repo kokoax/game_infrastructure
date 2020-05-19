@@ -1,10 +1,10 @@
 [Unit]
 Description = 7dtd save data stop sync
-Before=shutdown.target reboot.target
+Before = shutdown.target
 
 [Service]
 Type = oneshot
-RemainAfterExit=true
+RemainAfterExit = true
 ExecStart = /root/.bin/save_data_sync.sh stop
 
 [Install]

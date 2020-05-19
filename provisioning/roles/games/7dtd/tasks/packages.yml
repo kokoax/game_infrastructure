@@ -27,3 +27,17 @@
         - "force_install_dir /root/7dtd"
         - "app_update 294420 validate"
         - "exit"
+- name: Mkdir /root/7dtd/7DaysToDie/Data
+  file:
+    path: /root/7dtd/7DaysToDie/Data
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+- name: Mkdir /root/7dtd/7DaysToDie/Saves
+  file:
+    path: /root/7dtd/7DaysToDie/Saves
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
