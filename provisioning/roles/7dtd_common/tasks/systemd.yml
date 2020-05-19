@@ -17,14 +17,17 @@
     copy:
       src: files/etc/systemd/system/7dtd_sync_start.service
       dest: /etc/systemd/system/7dtd_sync_start.service
+    notify: Restart 7dtd_sync_start
   - name: Copy /etc/systemd/system/7dtd_sync_stop.service
     copy:
       src: files/etc/systemd/system/7dtd_sync_stop.service
       dest: /etc/systemd/system/7dtd_sync_stop.service
+    notify: Restart 7dtd_sync_stop
   - name: Copy /etc/systemd/system/7dtd_server.service
     copy:
       src: files/etc/systemd/system/7dtd_server.service
       dest: /etc/systemd/system/7dtd_server.service
+    notify: Restart 7dtd_server
   - name: Reload systemd unit files
     systemd:
       daemon-reload: yes
