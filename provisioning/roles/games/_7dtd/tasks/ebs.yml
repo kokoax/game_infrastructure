@@ -1,7 +1,18 @@
 ---
+- name: Check volume device
+  stat:
+    path: /dev/sdh
+  register: volume_device
 - name: Attach ebs
   # NOTE: volume-idはawsでリソースを作ってからidを取ってきて変数に入れてください
-  command: aws ec2 attach-volume --device /dev/sdh --volume-id {{ volume-id }} --instance-id `curl 169.254.169.254/latest/meta-data/instance-id/`
+  command: aws ec2 attach-volume --device /dev/sdh --volume-id {{ volume_id }} --instance-id {{ lookup('pipe', 'curl 169.254.169.254/latest/meta-data/instance-id/') }}
+  when: not volume_device.stat.exists
+- name: Command file /dev/sdh
+  command: df -T /dev/sdh
+  register: df_result
+- name: Format EBS
+  command: mkfs -t xfs /dev/sdh
+  when: volume_device.stat.exists and "devtmpfs" in df_result.stdout
 - name: Mount external EBS to /tmp/ebs
   mount:
     path: /tmp/ebs
@@ -11,8 +22,15 @@
     state: mounted
     dump: 1
     passno: 1
+- name: Find /home/* directory
+  find:
+    paths: /home/
+    patterns: "*"
+    file_type: directory
+  register: find_result
 - name: Move /home/* to /tmp/ebs
-  command: mv /home/* /tmp/ebs
+  command: mv "{{ item.path }}" /tmp/ebs
+  with_items: "{{ find_result.files }}"
 - name: Move /home to /home_org
   command: mv /home /home_org
 - name: Unmount external EBS from /tmp/ebs
@@ -27,7 +45,7 @@
 - name: Mount external EBS to /home
   mount:
     path: /home
-    src: LABEL=/home
+    src: LABEL=/dev/sdh
     fstype: xfs
     opts: defaults,noatime
     state: mounted
