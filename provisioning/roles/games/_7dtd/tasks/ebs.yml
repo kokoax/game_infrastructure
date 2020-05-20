@@ -7,49 +7,44 @@
   # NOTE: volume-idはawsでリソースを作ってからidを取ってきて変数に入れてください
   command: aws ec2 attach-volume --device /dev/sdh --volume-id {{ volume_id }} --instance-id {{ lookup('pipe', 'curl 169.254.169.254/latest/meta-data/instance-id/') }}
   when: not volume_device.stat.exists
-- name: Command file /dev/sdh
-  command: df -T /dev/sdh
-  register: df_result
-- name: Format EBS
-  command: mkfs -t xfs /dev/sdh
-  when: volume_device.stat.exists and "devtmpfs" in df_result.stdout
-- name: Mount external EBS to /tmp/ebs
-  mount:
-    path: /tmp/ebs
-    src: /dev/sdh
-    fstype: xfs
-    opts: defaults,noatime
-    state: mounted
-    dump: 1
-    passno: 1
+- name: Mkdir /tmp/home
+  file:
+    path: /tmp/home
+    state: directory
 - name: Find /home/* directory
   find:
     paths: /home/
     patterns: "*"
     file_type: directory
   register: find_result
-- name: Move /home/* to /tmp/ebs
-  command: mv "{{ item.path }}" /tmp/ebs
+- name: Move /home/* to /tmp/home
+  command: mv "{{ item.path }}" /tmp/home
   with_items: "{{ find_result.files }}"
 - name: Move /home to /home_org
   command: mv /home /home_org
-- name: Unmount external EBS from /tmp/ebs
-  mount:
-    path: /tmp/ebs
-    src: LABEL=/tmp/ebs
-    fstype: xfs
-    opts: defaults,noatime
-    state: unmounted
-    dump: 1
-    passno: 1
 - name: Mount external EBS to /home
   mount:
     path: /home
-    src: LABEL=/dev/sdh
+    src: /dev/sdh
     fstype: xfs
     opts: defaults,noatime
     state: mounted
     dump: 1
     passno: 1
-- name: Copy /home_org to /home
-  command: cp -R /home_org/* /home
+- name: Command df -T /dev/sdh
+  command: df -T /dev/sdh
+  register: df_result
+- name: Format EBS
+  command: mkfs -t xfs /dev/sdh
+  when: volume_device.stat.exists and "devtmpfs" in df_result.stdout
+- name: Find /tmp/home/* directory
+  find:
+    paths: /tmp/home/
+    patterns: "*"
+    file_type: directory
+  register: find_result
+- name: Move /tmp/home/* to /home
+  command: mv "{{ item.path }}" /home
+  with_items: "{{ find_result.files }}"
+- name: Remove /tmp/home
+  command: rmdir /tmp/home
