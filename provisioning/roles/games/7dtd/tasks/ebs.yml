@@ -1,0 +1,15 @@
+---
+- name: Move /home to /home_org
+  command: mv /home /home_org
+- name: Mount external EBS
+  mount:
+    path: /home
+    src: LABEL=/ebs1
+    fstype: xfs
+    opts: defaults,noatime
+    state: "{% if lookup('env', 'ENV') == 'docker' %}present{% else %}mounted{% endif %}" # dockerは実際にマウントせずfstab更新のみ
+    dump: 1
+    passno: 1
+  when: common.fstab.use_ebs
+- name: Copy /home_org to /home
+  command: cp -R /home_org/* /home
