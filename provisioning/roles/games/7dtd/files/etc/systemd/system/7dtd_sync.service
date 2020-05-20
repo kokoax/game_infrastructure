@@ -1,7 +1,7 @@
 [Unit]
 Description = 7dtd save data stop sync
-After=network.target
-Before=shutdown.target reboot.target
+After = network.target
+Before = shutdown.target reboot.target
 
 [Service]
 Type = oneshot

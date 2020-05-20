@@ -1,9 +1,0 @@
-[Unit]
-Description = 7dtd save data backup to s3
-
-[Service]
-Type = simple
-ExecStart = /root/.bin/save_data_sync.sh start
-
-[Install]
-WantedBy = multi-user.target
