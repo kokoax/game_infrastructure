@@ -1,0 +1,15 @@
+- name: Install steamcmd
+  unarchive:
+      src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
+      dest: /usr/local/bin
+      remote_src: yes
+- name: Install 7dtd server
+  expect:
+    command: /usr/local/bin/steamcmd.sh
+    timeout: null
+    responses:
+      "Steam>":
+        - "login anonymous"
+        - "force_install_dir /home/{{ user }}/7dtd_server"
+        - "app_update 294420 validate"
+        - "exit"

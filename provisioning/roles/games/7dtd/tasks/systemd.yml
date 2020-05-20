@@ -1,36 +1,11 @@
-- name: Mkdir /root/.bin
-  file:
-    path: /root/.bin
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-- block:
-  - name: Copy /root/.bin/save_data_sync.sh
-    copy:
-      src: files/root/.bin/save_data_sync.sh
-      dest: /root/.bin/save_data_sync.sh
-      owner: root
-      group: root
-      mode: 0777
-  - name: Copy /etc/systemd/system/7dtd_sync.service
-    copy:
-      src: files/etc/systemd/system/7dtd_sync.service
-      dest: /etc/systemd/system/7dtd_sync.service
-    notify: Restart 7dtd_sync
-  - name: Copy /etc/systemd/system/7dtd_server.service
-    copy:
-      src: files/etc/systemd/system/7dtd_server.service
-      dest: /etc/systemd/system/7dtd_server.service
-    notify: Restart 7dtd_server
-  - name: Reload systemd unit files
-    systemd:
-      daemon-reload: yes
-- name: Enabled 7dtd_sync
+- name: Copy /etc/systemd/system/7dtd_server.service
+  copy:
+    src: files/etc/systemd/system/7dtd_server.service
+    dest: /etc/systemd/system/7dtd_server.service
+  notify: Restart 7dtd_server
+- name: Reload systemd unit files
   systemd:
-    name: 7dtd_sync
-    enabled: yes
-  notify: Restart 7dtd_sync
+    daemon-reload: yes
 - name: Enabled 7dtd_server
   systemd:
     name: 7dtd_server

@@ -4,6 +4,7 @@ After = network.target
 
 [Service]
 Type = simple
+User =  {{ user }}
 ExecStart = /root/7dtd/startserver.sh -configfile=/root/7dtd/serverconfig.xml
 
 [Install]
