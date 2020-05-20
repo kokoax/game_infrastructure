@@ -37,4 +37,7 @@ apply: syntax-check ## (ansible) 変更を適用する
 test: ## (rspec) テストを走らす
 	$(RSPEC_CMD) spec/$(HOST_NAME)/$(PLAYBOOK_NAME)_spec.rb
 
+7dtd:
+	$(MAKE) apply HOST_NAME=games PLAYBOOK_NAME=_7dtd
+
 -include makefiles/*.mk
