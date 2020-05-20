@@ -25,19 +25,16 @@ ci: apply test ## apply, test
 lint: ## (ansible) lint を走らす
 	$(ANSIBLE_LINT_CMD) $(LINT_PATTERN)
 
-dry-run: .env ## (ansible) dry-run
+dry-run: ## (ansible) dry-run
 	$(ANSIBLE_PLAYBOOK_CMD) -i $(INVENTORY) -c $(CONNECTION) $(DRY_RUN_OPT) $(PLAYBOOK)
 
-syntax-check: .env ## (ansible) 構文チェックを行う
+syntax-check: ## (ansible) 構文チェックを行う
 	$(ANSIBLE_PLAYBOOK_CMD) -i $(INVENTORY) -c $(CONNECTION) $(SYNTAX_CHECK_OPT) $(PLAYBOOK)
 
-apply: .env syntax-check ## (ansible) 変更を適用する
+apply: syntax-check ## (ansible) 変更を適用する
 	$(ANSIBLE_PLAYBOOK_CMD) -i $(INVENTORY) -c $(CONNECTION) $(PLAYBOOK)
 
 test: ## (rspec) テストを走らす
 	$(RSPEC_CMD) spec/$(HOST_NAME)/$(PLAYBOOK_NAME)_spec.rb
-
-.env: ## .env ファイルを作成する
-	ln -sf /usr/local/etc/.env
 
 -include makefiles/*.mk
