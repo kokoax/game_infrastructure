@@ -1,12 +1,33 @@
 ---
+- name: Mount external EBS to /tmp/ebs
+  mount:
+    path: /tmp/ebs
+    src: LABEL=/tmp/ebs
+    fstype: xfs
+    opts: defaults,noatime
+    state: mounted
+    dump: 1
+    passno: 1
+- name: Move /home/* to /tmp/ebs
+  command: mv /home/* /tmp/ebs
 - name: Move /home to /home_org
   command: mv /home /home_org
-- name: Mount external EBS
+- name: Unmount external EBS from /tmp/ebs
+  mount:
+    path: /tmp/ebs
+    src: LABEL=/tmp/ebs
+    fstype: xfs
+    opts: defaults,noatime
+    state: unmounted
+    dump: 1
+    passno: 1
+- name: Mount external EBS to /home
   mount:
     path: /home
     src: LABEL=/home
     fstype: xfs
     opts: defaults,noatime
+    state: mounted
     dump: 1
     passno: 1
 - name: Copy /home_org to /home
