@@ -1,8 +1,11 @@
 ---
+- name: Attach ebs
+  # NOTE: volume-idはawsでリソースを作ってからidを取ってきて変数に入れてください
+  command: aws ec2 attach-volume --device /dev/sdh --volume-id {{ volume-id }} --instance-id `curl 169.254.169.254/latest/meta-data/instance-id/`
 - name: Mount external EBS to /tmp/ebs
   mount:
     path: /tmp/ebs
-    src: LABEL=/tmp/ebs
+    src: /dev/sdh
     fstype: xfs
     opts: defaults,noatime
     state: mounted
