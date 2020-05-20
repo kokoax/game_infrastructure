@@ -1,5 +1,7 @@
 ---
-- hosts: server
+- hosts: _7dtd
+  vars_files:
+    - ../../hosts/games/vars/_7dtd.yml
   tasks:
   roles:
-  - games/7dtd
+  - games/_7dtd
