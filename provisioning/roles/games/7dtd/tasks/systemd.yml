@@ -13,16 +13,11 @@
       owner: root
       group: root
       mode: 0777
-  - name: Copy /etc/systemd/system/7dtd_sync_start.service
+  - name: Copy /etc/systemd/system/7dtd_sync.service
     copy:
-      src: files/etc/systemd/system/7dtd_sync_start.service
-      dest: /etc/systemd/system/7dtd_sync_start.service
-    notify: Restart 7dtd_sync_start
-  - name: Copy /etc/systemd/system/7dtd_sync_stop.service
-    copy:
-      src: files/etc/systemd/system/7dtd_sync_stop.service
-      dest: /etc/systemd/system/7dtd_sync_stop.service
-    notify: Restart 7dtd_sync_stop
+      src: files/etc/systemd/system/7dtd_sync.service
+      dest: /etc/systemd/system/7dtd_sync.service
+    notify: Restart 7dtd_sync
   - name: Copy /etc/systemd/system/7dtd_server.service
     copy:
       src: files/etc/systemd/system/7dtd_server.service
@@ -31,16 +26,11 @@
   - name: Reload systemd unit files
     systemd:
       daemon-reload: yes
-- name: Enabled 7dtd_sync_start
+- name: Enabled 7dtd_sync
   systemd:
-    name: 7dtd_sync_start
+    name: 7dtd_sync
     enabled: yes
-  notify: Restart 7dtd_sync_start
-- name: Enabled 7dtd_sync_stop
-  systemd:
-    name: 7dtd_sync_stop
-    enabled: yes
-  notify: Restart 7dtd_sync_stop
+  notify: Restart 7dtd_sync
 - name: Enabled 7dtd_server
   systemd:
     name: 7dtd_server
