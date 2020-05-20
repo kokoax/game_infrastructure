@@ -1,13 +1,13 @@
-- name: Add group "7dtd"
+- name: Add group "{{ group }}"
   group:
-    name: {{ user }}
+    name: "{{ group }}"
     gid: 500
     state: present
 - name: Add user "{{ user }}"
   user:
-    name: {{ user }}
+    name: "{{ user }}"
     uid: 501
-    group: 7dtd
+    group: "{{ group }}"
     comment: "voyagemarketing's service app user"
     home: "/home/{{ user }}"
     shell: /bin/bash

@@ -1,6 +1,6 @@
 - name: Copy /etc/systemd/system/7dtd_server.service
-  copy:
-    src: files/etc/systemd/system/7dtd_server.service
+  template:
+    src: templates/etc/systemd/system/7dtd_server.service
     dest: /etc/systemd/system/7dtd_server.service
   notify: Restart 7dtd_server
 - name: Reload systemd unit files
