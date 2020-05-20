@@ -24,6 +24,9 @@ docker/run: docker/rm ## (docker) CMD を指定して走らせる
 	$(DOCKER_CMD) exec -it $(CONTAINER_NAME) $(CMD)
 	$(MAKE) docker/rm
 
+docker/exec:
+	$(DOCKER_CMD) exec -it $(CONTAINER_NAME) $(CMD)
+
 docker/rm: ## (docker) コンテナを強制削除する。
 	[ ! `$(DOCKER_CMD) ps -q -a --filter name=$(CONTAINER_NAME)` ] || $(DOCKER_CMD) rm --force `$(DOCKER_CMD) ps -q -a --filter name=$(CONTAINER_NAME)` || true
 
