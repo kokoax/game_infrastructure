@@ -10,22 +10,7 @@
 - name: Pause after attach
   pause:
     seconds: 5
-- name: Mkdir /tmp/home
-  file:
-    path: /tmp/home
-    state: directory
-- name: Find /home/* directory
-  find:
-    paths: /home/
-    patterns: "*"
-    file_type: directory
-  register: find_result
-- name: Move /home/* to /tmp/home
-  command: mv "{{ item.path }}" /tmp/home
-  with_items: "{{ find_result.files }}"
-- name: Move /home to /home_org
-  command: mv /home /home_org
-- name: Mount external EBS to /home
+- name: Mount external EBS to /ebs
   mount:
     path: /home
     src: /dev/sdh
@@ -40,12 +25,3 @@
 - name: Format EBS
   command: mkfs -t xfs /dev/sdh
   when: volume_device.stat.exists and "devtmpfs" in df_result.stdout
-- name: Find /tmp/home/* directory
-  find:
-    paths: /tmp/home/
-    patterns: "*"
-    file_type: directory
-  register: find_result
-- name: Move /tmp/home/* to /home
-  command: mv "{{ item.path }}" /home
-  with_items: "{{ find_result.files }}"
