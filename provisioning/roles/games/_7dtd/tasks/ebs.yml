@@ -12,7 +12,7 @@
     dest: /root/.bin/ebs_mount.sh
     mode: 0755
 - name: Copy /etc/systemd/system/ebs_mount.service
-  file:
+  copy:
     src: files/etc/systemd/system/ebs_mount.service
     dest: /etc/systemd/system/ebs_mount.service
   notify: Restart ebs_mount
