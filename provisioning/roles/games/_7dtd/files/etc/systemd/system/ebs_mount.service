@@ -1,0 +1,10 @@
+[Unit]
+Description = ebs mount
+After = network.target
+
+[Service]
+Type = simple
+ExecStart = /root/.bin/ebs_mount.sh
+
+[Install]
+WantedBy = multi-user.target

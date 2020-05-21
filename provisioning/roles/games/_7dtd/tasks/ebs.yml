@@ -1,27 +1,19 @@
 ---
-- name: Check volume device
-  stat:
-    path: /dev/sdh
-  register: volume_device
-- name: Attach ebs
-  # NOTE: volume-idはawsでリソースを作ってからidを取ってきて変数に入れてください
-  command: aws ec2 attach-volume --device /dev/sdh --volume-id {{ volume_id }} --instance-id {{ lookup('pipe', 'curl 169.254.169.254/latest/meta-data/instance-id/') }}
-  when: not volume_device.stat.exists
-- name: Pause after attach
-  pause:
-    seconds: 5
-- name: Mount external EBS to /ebs
-  mount:
-    path: /ebs
-    src: /dev/sdh
-    fstype: xfs
-    opts: defaults,noatime
-    state: mounted
-    dump: 1
-    passno: 1
-- name: Command df -T /dev/sdh
-  command: df -T /dev/sdh
-  register: df_result
-- name: Format EBS
-  command: mkfs -t xfs /dev/sdh
-  when: volume_device.stat.exists and "devtmpfs" in df_result.stdout
+- name: Template /root/.bin/ebs_mount.sh
+  template:
+    src: templates/root/.bin/ebs_mount.sh
+    dest: /root/.bin/ebs_mount.sh
+    mode: 0755
+- name: Copy /etc/systemd/system/ebs_mount.service
+  file:
+    src: files/etc/systemd/system/ebs_mount.service
+    dest: /etc/systemd/system/ebs_mount.service
+  notify: Restart ebs_mount
+- name: Reload systemd unit files
+  systemd:
+    daemon-reload: yes
+- name: Enabled ebs_mount.service
+  systemd:
+    name: ebs_mount
+    enabled: yes
+  notify: Restart ebs_mount

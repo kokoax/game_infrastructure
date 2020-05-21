@@ -1,7 +1,7 @@
 ---
-- name: Restart 7dtd_sync
+- name: Restart ebs_mount
   systemd:
-    name: 7dtd_sync
+    name: ebs_mount
     state: restarted
 - name: Restart 7dtd_server
   systemd:
