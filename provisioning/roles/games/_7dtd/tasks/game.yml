@@ -1,3 +1,4 @@
+---
 # MUST: run after ebs task
 - name: Install steamcmd
   unarchive:
@@ -20,4 +21,9 @@
     owner: "{{ user }}"
     group: "{{ group }}"
     recurse: true
+    mode: 0755
+- name: Copy /ebs/7dtd_server/serverconfig.xml
+  file:
+    src: files/ebs/7dtd_server/serverconfig.xml
+    dest: /ebs/7dtd_server/serverconfig.xml
     mode: 0755
