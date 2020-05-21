@@ -1,4 +1,11 @@
 ---
+- name: Mkdir /root/.bin
+  file:
+    path: /root/.bin
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
 - name: Template /root/.bin/ebs_mount.sh
   template:
     src: templates/root/.bin/ebs_mount.sh
