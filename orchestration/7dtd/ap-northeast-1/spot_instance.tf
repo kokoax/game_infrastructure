@@ -16,6 +16,8 @@ resource "aws_ebs_volume" "volume" {
   }
 }
 
+# Spot Instanceには起動前にEBSをアタッチできないので形だけ残しておく
+# 実際にはprovisioning時にcliからアタッチ実施している
 # resource "aws_volume_attachment" "ebs_attach" {
 #   device_name = "/dev/sdh"
 #   volume_id = aws_ebs_volume.volume.id
@@ -23,12 +25,11 @@ resource "aws_ebs_volume" "volume" {
 # }
 
 resource "aws_spot_instance_request" "_7dtd_spot_instance_request" {
-  ami           =	"ami-09d51e1053e13a72f"
+  ami           =	"ami-016edb6ab84556084"
   instance_type = "c5.large"
   subnet_id     = aws_subnet.public.id
   spot_price = "0.1"
   security_groups = [aws_security_group._7dtd_security_group.id]
-  iam_instance_profile = aws_iam_instance_profile.instance_profile.name
   key_name = aws_key_pair.access_7dtd_instance.id
 
   tags = {
