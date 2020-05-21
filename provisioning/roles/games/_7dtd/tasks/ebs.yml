@@ -1,4 +1,4 @@
----
+g--
 - name: Check volume device
   stat:
     path: /dev/sdh
@@ -12,7 +12,7 @@
     seconds: 5
 - name: Mount external EBS to /ebs
   mount:
-    path: /home
+    path: /ebs
     src: /dev/sdh
     fstype: xfs
     opts: defaults,noatime
