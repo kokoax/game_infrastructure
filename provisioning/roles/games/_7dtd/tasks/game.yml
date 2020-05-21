@@ -3,9 +3,9 @@
   unarchive:
       src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
       dest: /usr/local/bin
+      mode: 0777
       remote_src: yes
 - name: Install 7dtd server
-  remote_user: "{{ user }}"
   expect:
     command: /usr/local/bin/steamcmd.sh
     timeout: null
@@ -15,3 +15,9 @@
         - "force_install_dir /ebs/7dtd_server"
         - "app_update 294420 validate"
         - "exit"
+- name: Change owner and group of /ebs/7dtd_server
+  file:
+    path: /ebs/7dtd_server
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: 0755
