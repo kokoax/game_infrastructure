@@ -3,7 +3,6 @@
   unarchive:
       src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
       dest: /usr/local/bin
-      mode: 0777
       remote_src: yes
 - name: Install 7dtd server
   expect:
@@ -20,4 +19,5 @@
     path: /ebs/7dtd_server
     owner: "{{ user }}"
     group: "{{ group }}"
+    recurse: true
     mode: 0755
