@@ -1,4 +1,4 @@
-g--
+---
 - name: Check volume device
   stat:
     path: /dev/sdh
