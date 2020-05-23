@@ -25,7 +25,7 @@ resource "aws_ebs_volume" "volume" {
 # }
 
 # resource "aws_spot_instance_request" "_7dtd_spot_instance_request" {
-#   ami           =	"ami-016edb6ab84556084"
+#   ami           =	"ami-00fb89cc5f8bf00ed"
 #   instance_type = "c5.large"
 #   subnet_id     = aws_subnet.public.id
 #   spot_price = "0.1"
