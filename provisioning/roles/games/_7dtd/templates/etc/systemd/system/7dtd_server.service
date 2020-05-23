@@ -1,6 +1,6 @@
 [Unit]
 Description = 7dtd server
-After = network.target
+After = network.target ebs_mount.service
 
 [Service]
 Type = simple
