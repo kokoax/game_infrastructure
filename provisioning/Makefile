@@ -31,7 +31,10 @@ dry-run: ## (ansible) dry-run
 syntax-check: ## (ansible) 構文チェックを行う
 	$(ANSIBLE_PLAYBOOK_CMD) -i $(INVENTORY) -c $(CONNECTION) $(SYNTAX_CHECK_OPT) $(PLAYBOOK)
 
-apply: syntax-check ## (ansible) 変更を適用する
+git-pull:
+	@git pull
+
+apply: git-pull syntax-check ## (ansible) 変更を適用する
 	$(ANSIBLE_PLAYBOOK_CMD) -i $(INVENTORY) -c $(CONNECTION) $(PLAYBOOK)
 
 test: ## (rspec) テストを走らす
