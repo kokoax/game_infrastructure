@@ -15,6 +15,7 @@
         - "force_install_dir /ebs/7dtd_server"
         - "app_update 294420 validate"
         - "exit"
+  notify: Restart 7dtd_server
 - name: Change owner and group of /ebs/7dtd_server
   file:
     path: /ebs/7dtd_server
@@ -27,6 +28,7 @@
     src: files/ebs/7dtd_server/serverconfig.xml
     dest: /ebs/7dtd_server/serverconfig.xml
     mode: 0755
+  notify: Restart 7dtd_server
 - name: Copy /etc/systemd/system/7dtd_server.service
   template:
     src: templates/etc/systemd/system/7dtd_server.service
