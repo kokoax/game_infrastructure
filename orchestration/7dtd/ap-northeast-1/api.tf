@@ -40,6 +40,12 @@ resource "aws_api_gateway_integration" "instance_up" {
   integration_http_method = "POST"
   type = "AWS"
   uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.instance_up_lambda.arn}/invocations"
+
+  request_templates = {
+    "application/x-www-form-urlencoded" = <<TEMPLATE
+{}
+    TEMPLATE
+  }
 }
 
 resource "aws_api_gateway_integration" "instance_down" {
@@ -49,6 +55,12 @@ resource "aws_api_gateway_integration" "instance_down" {
   integration_http_method = "POST"
   type = "AWS"
   uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.instance_down_lambda.arn}/invocations"
+
+  request_templates = {
+    "application/x-www-form-urlencoded" = <<TEMPLATE
+{}
+    TEMPLATE
+  }
 }
 
 # put-method-response
