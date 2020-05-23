@@ -23,9 +23,9 @@
     group: "{{ group }}"
     recurse: true
     mode: 0755
-- name: Copy /ebs/7dtd_server/serverconfig.xml
-  copy:
-    src: files/ebs/7dtd_server/serverconfig.xml
+- name: Template /ebs/7dtd_server/serverconfig.xml
+  template:
+    src: templates/ebs/7dtd_server/serverconfig.xml
     dest: /ebs/7dtd_server/serverconfig.xml
     mode: 0755
   notify: Restart 7dtd_server
