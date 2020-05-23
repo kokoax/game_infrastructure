@@ -3,7 +3,7 @@ Description = ebs mount
 After = network.target
 
 [Service]
-Type = simple
+Type = oneshot
 ExecStart = /root/.bin/ebs_mount.sh
 
 [Install]
