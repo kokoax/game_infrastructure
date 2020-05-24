@@ -20,3 +20,6 @@ def lambda_handler(event, context):
                 response = client.cancel_spot_instance_requests(
                         SpotInstanceRequestIds=[ request_id['SpotInstanceRequestId'] ]
                         )
+                response = client.terminate_instances(
+                        InstanceIds=[ request_id['InstanceId'] ]
+                        )
