@@ -18,17 +18,11 @@ def lambda_handler(event, context):
     response = client.describe_instances(InstanceIds=[instance_id])
     instance = response['Reservations'][0]['Instances'][0]
     url = get_decript_key(os.environ['ENCRYPTED_SLACK_WEBHOOK'])
-    fields = []
-    fields.append({
-        'title': 'Public IP',
-        'value': instance["PublicIpAddress"],
-        'short': True,
-        })
     data = {
             'attachments': [{
-                'pretext': '<!here> インスタンスが起動しました',
+                'pretext': '<!here> インスタンスが停止しました',
                 'color': 'good',
-                'fields': fields,
+                'fields': [],
                 }]
             }
     # Slack通知
