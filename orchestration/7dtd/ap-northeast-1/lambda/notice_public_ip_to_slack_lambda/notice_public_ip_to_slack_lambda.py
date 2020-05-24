@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     url = get_decript_key(os.environ['ENCRYPTED_SLACK_WEBHOOK'])
     fields = []
     fields.append({
-        'title': 'Name',
+        'title': 'Public IP',
         'value': instance["PublicIpAddress"],
         'short': True,
         })
