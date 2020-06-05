@@ -6,6 +6,13 @@
     group: root
     mode: 0755
     state: directory
+- name: Mkdir /home/{{ user }}/.local
+  file:
+    path: /home/{{ user }}/.local
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: 0755
+    state: directory
 - name: Template /root/.bin/ebs_mount.sh
   template:
     src: templates/root/.bin/ebs_mount.sh
