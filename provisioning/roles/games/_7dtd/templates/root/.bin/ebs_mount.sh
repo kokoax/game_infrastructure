@@ -3,3 +3,4 @@ aws ec2 attach-volume --device /dev/sdh --volume-id {{ volume_id }} --instance-i
 sleep 5
 mount /dev/sdh /ebs
 mount /dev/sdh /home/{{ user }}/.local
+chown -R {{ user }}:{{ group }} /home/{{ user }}/.local
