@@ -34,7 +34,7 @@ syntax-check: ## (ansible) 構文チェックを行う
 git-pull:
 	@git pull
 
-apply: syntax-check ## (ansible) 変更を適用する
+apply: git-pull syntax-check ## (ansible) 変更を適用する
 	$(ANSIBLE_PLAYBOOK_CMD) -i $(INVENTORY) -c $(CONNECTION) $(PLAYBOOK)
 
 test: ## (rspec) テストを走らす
