@@ -16,13 +16,6 @@
         - "app_update 294420 validate"
         - "exit"
   notify: Restart 7dtd_server
-- name: Change owner and group of /ebs/7dtd_server
-  file:
-    path: /ebs/7dtd_server
-    owner: "{{ user }}"
-    group: "{{ group }}"
-    recurse: true
-    mode: 0755
 - name: Template /ebs/7dtd_server/serverconfig.xml
   template:
     src: templates/ebs/7dtd_server/serverconfig.xml
@@ -40,6 +33,13 @@
     src: templates/etc/systemd/system/7dtd_server.service
     dest: /etc/systemd/system/7dtd_server.service
   notify: Restart 7dtd_server
+- name: Change owner and group of /ebs/7dtd_server
+  file:
+    path: /ebs/7dtd_server
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    recurse: true
+    mode: 0755
 - name: Reload systemd unit files
   systemd:
     daemon-reload: yes
