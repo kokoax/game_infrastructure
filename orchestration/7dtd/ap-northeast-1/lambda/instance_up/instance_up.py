@@ -7,7 +7,7 @@ import time
 spot_price                 = '0.15'
 instance_count             = 1
 request_type               = 'request'
-image_id                   = 'ami-032264be6c6f08f3c'
+image_id                   = 'ami-0763a0836f4812f45'
 security_group_id          = 'sg-03e83d20acec854f7'
 instance_type              = 'c5.xlarge'
 availability_zone          = 'ap-northeast-1d'
