@@ -29,10 +29,11 @@
     dest: /ebs/7dtd_server/serverconfig.xml
     mode: 0755
   notify: Restart 7dtd_server
-- name: Copy /etc/systemd/system/7dtd_server.service
+- name: Copy /ebs/7dtd_server/Data/Config/*
   copy:
-    src_dir: file/ebs/7dtd_server/Data/Config
-    dest_dir: /ebs/7dtd_server/Data/Config
+    src: "{{ item }}"
+    dest: /ebs/7dtd_server/Data/Config/{{ item | basename }}
+  with_fileglob: "files/ebs/7dtd_server/Data/Config/*"
   notify: Restart 7dtd_server
 - name: Copy /etc/systemd/system/7dtd_server.service
   template:
