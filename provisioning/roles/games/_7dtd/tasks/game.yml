@@ -30,6 +30,11 @@
     mode: 0755
   notify: Restart 7dtd_server
 - name: Copy /etc/systemd/system/7dtd_server.service
+  copy:
+    src_dir: file/ebs/7dtd_server/Data/Config
+    dest_dir: /ebs/7dtd_server/Data/Config
+  notify: Restart 7dtd_server
+- name: Copy /etc/systemd/system/7dtd_server.service
   template:
     src: templates/etc/systemd/system/7dtd_server.service
     dest: /etc/systemd/system/7dtd_server.service
