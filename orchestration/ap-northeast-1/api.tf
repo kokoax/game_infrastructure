@@ -25,10 +25,7 @@ resource "aws_api_gateway_method" "instance_up" {
   authorization = "NONE"
 
   request_parameters = {
-    "method.request.querystring.image_id" = true
-    "method.request.querystring.security_group" = true
-    "method.request.querystring.subnet_id" = true
-    "method.request.querystring.spot_instance_request_name" = true
+    "method.request.querystring.game" = true
   }
 }
 
