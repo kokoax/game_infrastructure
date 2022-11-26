@@ -29,7 +29,7 @@ resource "aws_ebs_volume" "volume" {
 #   instance_type = "c5.large"
 #   subnet_id     = aws_subnet.public.id
 #   spot_price = "0.1"
-#   security_groups = [aws_security_group.7dtd_security_group.id]
+#   security_groups = [aws_security_group._7dtd_security_group.id]
 #   key_name = aws_key_pair.access_7dtd_instance.id
 # 
 #   tags = {
@@ -37,7 +37,7 @@ resource "aws_ebs_volume" "volume" {
 #   }
 # }
 
-resource "aws_security_group" "7dtd_security_group" {
+resource "aws_security_group" "_7dtd_security_group" {
   name        = "7dtd_security_group"
   description = "for instance ssh"
   vpc_id      = aws_vpc.vpc.id
