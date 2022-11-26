@@ -1,9 +1,17 @@
-resource "aws_vpc" "vpc" {
+resource "aws_vpc" "game" {
   cidr_block           = "10.0.0.0/16"
   instance_tenancy     = "default"
 
   tags = {
     Name = "game-vpc"
+  }
+}
+
+resource "aws_internet_gateway" "public" {
+  vpc_id = aws_vpc.game.id
+
+  tags = {
+    Name = "game-vpc-internet-gateway"
   }
 }
 
@@ -25,16 +33,7 @@ resource "aws_default_route_table" "default" {
   }
 }
 
-resource "aws_main_route_table_association" "default" {
+resource "aws_main_route_table_association" "vpc_default" {
   route_table_id = aws_default_route_table.default.id
-  vpc_id         = aws_vpc.vpc.id
+  vpc_id         = aws_vpc.game.id
 }
-
-resource "aws_internet_gateway" "public" {
-  vpc_id = aws_vpc.vpc.id
-
-  tags = {
-    Name = "game-vpc-internet-gateway"
-  }
-}
-
