@@ -4,20 +4,37 @@
 import boto3
 import time
 
-spot_price                 = '0.15'
-instance_count             = 1
-request_type               = 'request'
-#image_id                   = 'ami-0ad2296f162940437'
-#security_group_id          = 'sg-03e83d20acec854f7'
-instance_type              = 'c5.xlarge'
-availability_zone          = 'ap-northeast-1d'
-#subnet_id                  = 'subnet-0b81492c6a43fa421'
-game_name_tag              = "GameName"
-#spot_instance_request_name = '7dtd'
+game_info = {
+    '7dtd': {
+        'image_id': 'ami-0ad2296f162940437',
+        'security_group_id': 'sg-035b3b7462e2f9ca5',
+        'subnet_id': 'subnet-03a819f63008541e1',
+        'spot_instance_request_name': '7dtd'
+    },
+    'ark': {
+        'image_id': 'ami-04370541afecb3d12',
+        'security_group_id': 'ark_security_group',
+        'subnet_id': 'subnet-0027d26b218ed92da',
+        'spot_instance_request_name': 'ark'
+    }
+}
+
+spot_price        = '0.15'
+instance_count    = 1
+request_type      = 'request'
+instance_type     = 'c5.xlarge'
+availability_zone = 'ap-northeast-1d'
+game_name_tag     = "GameName"
 
 client = boto3.client('ec2')
 
 def lambda_handler(event, context):
+    game_name = event.queryStringParameters.game
+    image_id                   = game_info[game_name]["image_id"]
+    security_group_id          = game_info[game_name]["security_group_id"]
+    subnet_id                  = game_info[game_name]["subnet_id"]
+    spot_instance_request_name = game_info[game_name]["spot_instance_request_name"]
+
     response = client.describe_spot_instance_requests(
             Filters=[ { 'Name': 'state', 'Values': [ 'active' ] } ]
             )

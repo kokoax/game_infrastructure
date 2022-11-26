@@ -24,18 +24,18 @@ resource "aws_ebs_volume" "ark" {
 #   instance_id = aws_spot_instance_request._ark_spot_instance_request.id
 # }
 
-resource "aws_spot_instance_request" "_ark_spot_instance_request" {
-  ami           =	"ami-04370541afecb3d12"
-  instance_type = "c5.large"
-  subnet_id     = aws_subnet.ark.id
-  spot_price = "0.1"
-  security_groups = [aws_security_group.ark_security_group.id]
-  key_name = aws_key_pair.access_ark_instance.id
-
-  tags = {
-    Name = "ark-spot-instance"
-  }
-}
+#resource "aws_spot_instance_request" "_ark_spot_instance_request" {
+#  ami           =	"ami-04370541afecb3d12"
+#  instance_type = "c5.large"
+#  subnet_id     = aws_subnet.ark.id
+#  spot_price = "0.1"
+#  security_groups = [aws_security_group.ark_security_group.id]
+#  key_name = aws_key_pair.access_ark_instance.id
+#
+#  tags = {
+#    Name = "ark-spot-instance"
+#  }
+#}
 
 resource "aws_security_group" "ark_security_group" {
   name        = "ark_security_group"
