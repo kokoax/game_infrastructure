@@ -1,0 +1,38 @@
+---
+# MUST: run after ebs task
+- name: Install steamcmd
+  unarchive:
+      src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
+      dest: /usr/local/bin
+      remote_src: yes
+- name: Install ark server
+  expect:
+    command: /usr/local/bin/steamcmd.sh
+    timeout: null
+    responses:
+      "Steam>":
+        - "login anonymous"
+        - "force_install_dir /ebs/ark_server"
+        - "app_update 376030 validate"
+        - "exit"
+  notify: Restart ark_server
+- name: Copy /etc/systemd/system/ark_server.service
+  template:
+    src: templates/etc/systemd/system/ark_server.service
+    dest: /etc/systemd/system/ark_server.service
+  notify: Restart ark_server
+- name: Change owner and group of /ebs/ark_server
+  file:
+    path: /ebs/ark_server
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    recurse: true
+    mode: 0755
+- name: Reload systemd unit files
+  systemd:
+    daemon-reload: yes
+- name: Enabled ark_server
+  systemd:
+    name: ark_server
+    enabled: yes
+  notify: Restart ark_server

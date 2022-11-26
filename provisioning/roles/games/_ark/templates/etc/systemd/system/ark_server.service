@@ -1,0 +1,11 @@
+[Unit]
+Description = 7dtd server
+After = network.target ebs_mount.service
+
+[Service]
+Type = simple
+User =  {{ user }}
+ExecStart = /ebs/ark/ShooterGame/Binaries/Linux/ShooterGameServer TheIsland?listen?SessionName=gunkan?ServerPassword=gunkan?ServerAdminPassword=gunkan_admin -server -log
+
+[Install]
+WantedBy = multi-user.target

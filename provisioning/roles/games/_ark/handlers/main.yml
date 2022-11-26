@@ -1,0 +1,5 @@
+---
+- name: Restart ark_server
+  systemd:
+    name: ark_server
+    state: restarted

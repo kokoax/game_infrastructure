@@ -8,6 +8,6 @@
     name: "{{ user }}"
     uid: 501
     group: "{{ group }}"
-    comment: "voyagemarketing's service app user"
+    comment: "game user"
     home: "/home/{{ user }}"
     shell: /bin/bash

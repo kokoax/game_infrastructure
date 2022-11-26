@@ -1,0 +1,6 @@
+---
+- name: Restart ebs_mount
+  systemd:
+    name: ebs_mount
+    state: restarted
+

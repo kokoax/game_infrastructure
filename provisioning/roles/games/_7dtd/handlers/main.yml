@@ -1,8 +1,4 @@
 ---
-- name: Restart ebs_mount
-  systemd:
-    name: ebs_mount
-    state: restarted
 - name: Restart 7dtd_server
   systemd:
     name: 7dtd_server

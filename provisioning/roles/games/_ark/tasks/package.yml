@@ -1,0 +1,15 @@
+---
+- name: Install packages
+  yum:
+    name: "{{ packages }}"
+    state: installed
+  vars:
+    packages:
+      - wget
+      - rsync
+      - gcc
+      - libstdc++.i686
+      - glibc.i686
+      - nc
+      - tar
+      - unzip

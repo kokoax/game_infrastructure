@@ -1,5 +1,3 @@
 ---
 - import_tasks: packages.yml
-- import_tasks: user.yml
-- import_tasks: ebs.yml
 - import_tasks: game.yml
