@@ -12,7 +12,7 @@ game_info = {
         'spot_instance_request_name': '7dtd'
     },
     'ark': {
-        'image_id': 'ami-04370541afecb3d12',
+        'image_id': 'ami-0611486aa63a5919d',
         'security_group_id': 'ark_security_group',
         'subnet_id': 'subnet-0027d26b218ed92da',
         'spot_instance_request_name': 'ark'
@@ -29,7 +29,7 @@ game_name_tag     = "GameName"
 client = boto3.client('ec2')
 
 def lambda_handler(event, context):
-    game_name = event.queryStringParameters.game
+    game_name = event.get('game')
     image_id                   = game_info[game_name]["image_id"]
     security_group_id          = game_info[game_name]["security_group_id"]
     subnet_id                  = game_info[game_name]["subnet_id"]

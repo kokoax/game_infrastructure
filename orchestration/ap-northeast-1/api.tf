@@ -46,8 +46,10 @@ resource "aws_api_gateway_integration" "instance_up" {
   uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.instance_up_lambda.arn}/invocations"
 
   request_templates = {
-    "application/x-www-form-urlencoded" = <<TEMPLATE
-    {}
+    "application/json" = <<TEMPLATE
+    {
+      "game": "$input.params('game')"
+    }
     TEMPLATE
   }
 }
