@@ -41,7 +41,7 @@ EOF
 
 resource "aws_lambda_function" "instance_up_lambda" {
   filename      = "lambda/instance_up/lambda_handler.zip"
-  function_name = "7dtd_instance_up"
+  function_name = "instance_up"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "instance_up.lambda_handler"
   timeout       = 60
@@ -53,7 +53,7 @@ resource "aws_lambda_function" "instance_up_lambda" {
 
 resource "aws_lambda_function" "instance_down_lambda" {
   filename      = "lambda/instance_down/lambda_handler.zip"
-  function_name = "7dtd_instance_down"
+  function_name = "instance_down"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "instance_down.lambda_handler"
   timeout       = 60

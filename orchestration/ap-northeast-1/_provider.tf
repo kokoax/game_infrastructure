@@ -1,4 +1,6 @@
+variable "region" {}
+
 provider "aws" {
-  region  = "ap-northeast-1"
+  region  = var.region
   profile = "waiha"
 }

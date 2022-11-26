@@ -1,32 +1,32 @@
 # create_rest_api
-resource "aws_api_gateway_rest_api" "game" {
+resource "aws_api_gateway_rest_api" "_game" {
   name = "instance_rest"
   description = "game server instance controll"
 }
 
 # create_resource
 resource "aws_api_gateway_resource" "instance_up" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
-  parent_id   = aws_api_gateway_rest_api._7dtd.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api._game.id
+  parent_id   = aws_api_gateway_rest_api._game.root_resource_id
   path_part   = "instance_up"
 }
 
 resource "aws_api_gateway_resource" "instance_down" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
-  parent_id   = aws_api_gateway_rest_api._7dtd.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api._game.id
+  parent_id   = aws_api_gateway_rest_api._game.root_resource_id
   path_part   = "instance_down"
 }
 
 # put_method
 resource "aws_api_gateway_method" "instance_up" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = "POST"
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_method" "instance_down" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_down.id
   http_method = "POST"
   authorization = "NONE"
@@ -34,7 +34,7 @@ resource "aws_api_gateway_method" "instance_down" {
 
 #   put-intergration (register lambda to put method)
 resource "aws_api_gateway_integration" "instance_up" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = aws_api_gateway_method.instance_up.http_method
   integration_http_method = "POST"
@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration" "instance_up" {
 }
 
 resource "aws_api_gateway_integration" "instance_down" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_down.id
   http_method = aws_api_gateway_method.instance_down.http_method
   integration_http_method = "POST"
@@ -65,14 +65,14 @@ resource "aws_api_gateway_integration" "instance_down" {
 
 # put-method-response
 resource "aws_api_gateway_method_response" "instance_up_200" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = aws_api_gateway_method.instance_up.http_method
   status_code = "200"
 }
 
 resource "aws_api_gateway_method_response" "instance_up_500" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = aws_api_gateway_method.instance_up.http_method
   status_code = "500"
@@ -80,14 +80,14 @@ resource "aws_api_gateway_method_response" "instance_up_500" {
 }
 
 resource "aws_api_gateway_method_response" "instance_down_200" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_down.id
   http_method = aws_api_gateway_method.instance_down.http_method
   status_code = "200"
 }
 
 resource "aws_api_gateway_method_response" "instance_down_500" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_down.id
   http_method = aws_api_gateway_method.instance_down.http_method
   status_code = "500"
@@ -95,8 +95,8 @@ resource "aws_api_gateway_method_response" "instance_down_500" {
 }
 
 # put-integration-response
-resource "aws_api_gateway_integration_response" "instance_up_post_200" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+resource "aws_api_gateway_integration_response" "_instance_up_post_200" {
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = aws_api_gateway_method.instance_up.http_method
   status_code = aws_api_gateway_method_response.instance_up_200.status_code
@@ -105,8 +105,8 @@ resource "aws_api_gateway_integration_response" "instance_up_post_200" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "instance_up_post_500" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+resource "aws_api_gateway_integration_response" "_instance_up_post_500" {
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = aws_api_gateway_method.instance_up.http_method
   status_code = aws_api_gateway_method_response.instance_up_500.status_code
@@ -114,11 +114,11 @@ resource "aws_api_gateway_integration_response" "instance_up_post_500" {
   response_templates = {
     "application/json" = "$input.path('$').errorMessage"
   }
-  depends_on = [ aws_api_gateway_integration_response.instance_up_post_200 ]
+  depends_on = [ aws_api_gateway_integration_response._instance_up_post_200 ]
 }
 
-resource "aws_api_gateway_integration_response" "instance_down_post_200" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+resource "aws_api_gateway_integration_response" "_instance_down_post_200" {
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_down.id
   http_method = aws_api_gateway_method.instance_down.http_method
   status_code = aws_api_gateway_method_response.instance_down_200.status_code
@@ -127,8 +127,8 @@ resource "aws_api_gateway_integration_response" "instance_down_post_200" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "instance_down_post_500" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+resource "aws_api_gateway_integration_response" "_instance_down_post_500" {
+  rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_down.id
   http_method = aws_api_gateway_method.instance_down.http_method
   status_code = aws_api_gateway_method_response.instance_down_500.status_code
@@ -136,12 +136,12 @@ resource "aws_api_gateway_integration_response" "instance_down_post_500" {
   response_templates = {
     "application/json" = "$input.path('$').errorMessage"
   }
-  depends_on = [ aws_api_gateway_integration_response.instance_down_post_200 ]
+  depends_on = [ aws_api_gateway_integration_response._instance_down_post_200 ]
 }
 
 # create_deployment
-resource "aws_api_gateway_deployment" "_7dtd_deployment" {
-  rest_api_id = aws_api_gateway_rest_api._7dtd.id
+resource "aws_api_gateway_deployment" "game_deployment" {
+  rest_api_id = aws_api_gateway_rest_api._game.id
   depends_on = [ aws_api_gateway_integration.instance_up ]
   stage_name = "prod"
   stage_description = "setting file hash = ${md5(file("api.tf"))}"

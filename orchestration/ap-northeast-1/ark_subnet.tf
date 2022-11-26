@@ -1,7 +1,7 @@
 resource "aws_subnet" "ark" {
   vpc_id                  = aws_vpc.game.id
   availability_zone       = "ap-northeast-1d"
-  cidr_block              = "10.0.1.0/24"
+  cidr_block              = "10.0.2.0/24"
   map_public_ip_on_launch = true
   tags = {
     name = "ark-subnet-public"

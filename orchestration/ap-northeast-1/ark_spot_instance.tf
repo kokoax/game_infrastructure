@@ -1,4 +1,4 @@
-data "aws_ssm_parameter" "amzn2_ami" {
+data "aws_ssm_parameter" "ark_amzn2_ami" {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
@@ -7,7 +7,7 @@ resource "aws_key_pair" "access_ark_instance" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCnZ0XLXWVjFcQ90FHlDpMt3Z99OPEBt290Y5aA9tBA/OxL7yxo4ORLwh0tMNQ2CrQ8mriTd7+y85WiwCmKGxxVdWlSEVWtT7SCjlKrCUXnzZqv1PWJXlx5TZ5IbJ5SFDUp90Tv2SnuWopdOYRWD2gzOj7Tj8k39ivff3W3z7bUFfOhba0uTEhKxlvgrbRxRLBNYJuNErrvh4TAtYe3b0+CKAnbX4PAxMzPH9g6c2DRQbSsUTbmF4KwzdBxCng3wRRIFaB985nu3QP6W8Jzv1smuD2MAySbKP5YW5wEGgcfMk9o2p7TLfFeDgmjvO4ScnHNj9pQJXftuLeLIIRKXkB5egZ69FaLA3gtPXyCHzqJW2/96tGWnaChwwD8aCA4Uqco+KPFoXQZD4jQEHafxjgf5iJ9D2NPT8vppAwBu5lppWWZVx2LljxS1MLiHEWneusCcDoVoNs5ZfN83fIRB03YYyl7QngsWQO9hdpLg6s/rNWP8huGobzENDzPv3ao6dM= y-tokoi@y-tokoi.voyagegroup.local"
 }
 
-resource "aws_ebs_volume" "volume" {
+resource "aws_ebs_volume" "ark" {
   availability_zone = "ap-northeast-1d"
   size = 20
 
@@ -20,7 +20,7 @@ resource "aws_ebs_volume" "volume" {
 # 実際にはprovisioning時にcliからアタッチ実施している
 # resource "aws_volume_attachment" "ebs_attach" {
 #   device_name = "/dev/sdh"
-#   volume_id = aws_ebs_volume.volume.id
+#   volume_id = aws_ebs_volume.ark.id
 #   instance_id = aws_spot_instance_request._ark_spot_instance_request.id
 # }
 
