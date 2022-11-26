@@ -1,7 +1,4 @@
-variable "region"  {}
-
 provider "aws" {
-  version = "~> 2.0"
-  region  = var.region
+  region  = "ap-northeast-1"
   profile = "waiha"
 }
