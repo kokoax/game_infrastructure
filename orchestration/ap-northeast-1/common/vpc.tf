@@ -29,3 +29,12 @@ resource "aws_main_route_table_association" "default" {
   route_table_id = aws_default_route_table.default.id
   vpc_id         = aws_vpc.vpc.id
 }
+
+resource "aws_internet_gateway" "public" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "game-vpc-internet-gateway"
+  }
+}
+
