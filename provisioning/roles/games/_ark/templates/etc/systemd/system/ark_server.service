@@ -1,5 +1,5 @@
 [Unit]
-Description = 7dtd server
+Description = ark server
 After = network.target ebs_mount.service
 
 [Service]
