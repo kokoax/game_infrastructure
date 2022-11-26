@@ -1,0 +1,8 @@
+---
+- hosts: _ark
+  vars_files:
+    - ../../hosts/games/vars/_ark.yml
+  tasks:
+  roles:
+  - common
+  - games/_ark
