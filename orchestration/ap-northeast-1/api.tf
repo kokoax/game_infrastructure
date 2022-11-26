@@ -23,6 +23,13 @@ resource "aws_api_gateway_method" "instance_up" {
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = "POST"
   authorization = "NONE"
+
+  request_parameters = {
+    "method.request.querystring.image_id" = true
+    "method.request.querystring.security_group" = true
+    "method.request.querystring.subnet_id" = true
+    "method.request.querystring.spot_instance_request_name" = true
+  }
 }
 
 resource "aws_api_gateway_method" "instance_down" {
@@ -43,7 +50,7 @@ resource "aws_api_gateway_integration" "instance_up" {
 
   request_templates = {
     "application/x-www-form-urlencoded" = <<TEMPLATE
-{}
+    {}
     TEMPLATE
   }
 }
@@ -58,7 +65,7 @@ resource "aws_api_gateway_integration" "instance_down" {
 
   request_templates = {
     "application/x-www-form-urlencoded" = <<TEMPLATE
-{}
+    {}
     TEMPLATE
   }
 }

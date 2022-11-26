@@ -7,13 +7,13 @@ import time
 spot_price                 = '0.15'
 instance_count             = 1
 request_type               = 'request'
-image_id                   = 'ami-0ad2296f162940437'
-security_group_id          = 'sg-03e83d20acec854f7'
+#image_id                   = 'ami-0ad2296f162940437'
+#security_group_id          = 'sg-03e83d20acec854f7'
 instance_type              = 'c5.xlarge'
 availability_zone          = 'ap-northeast-1d'
-subnet_id                  = 'subnet-0b81492c6a43fa421'
+#subnet_id                  = 'subnet-0b81492c6a43fa421'
 game_name_tag              = "GameName"
-spot_instance_request_name = '7dtd'
+#spot_instance_request_name = '7dtd'
 
 client = boto3.client('ec2')
 
