@@ -8,7 +8,6 @@
       - wget
       - rsync
       - gcc
-      - libstdc++.i686
       - glibc.i686
       - nc
       - tar
