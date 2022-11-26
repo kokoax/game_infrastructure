@@ -1,7 +1,7 @@
 # create_rest_api
-resource "aws_api_gateway_rest_api" "_7dtd" {
+resource "aws_api_gateway_rest_api" "game" {
   name = "instance_rest"
-  description = "7dtd server instance controll"
+  description = "game server instance controll"
 }
 
 # create_resource
