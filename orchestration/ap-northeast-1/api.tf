@@ -23,10 +23,6 @@ resource "aws_api_gateway_method" "instance_up" {
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = "POST"
   authorization = "NONE"
-
-  request_parameters = {
-    "method.request.querystring.text" = true
-  }
 }
 
 resource "aws_api_gateway_method" "instance_down" {
@@ -46,9 +42,9 @@ resource "aws_api_gateway_integration" "instance_up" {
   uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.instance_up_parent_lambda.arn}/invocations"
 
   request_templates = {
-    "application/json" = <<TEMPLATE
+    "application/x-www-form-urlencoded" = <<TEMPLATE
     {
-      "game": "$input.params('text')"
+      "qp": "$input.path('$')"
     }
     TEMPLATE
   }

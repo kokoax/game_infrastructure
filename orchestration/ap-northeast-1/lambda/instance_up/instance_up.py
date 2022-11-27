@@ -31,6 +31,7 @@ client = boto3.client('ec2')
 def lambda_handler(event, context):
     print("start progress")
     print(event)
+    print(context)
     game_name = event.get('game')
     image_id                   = game_info[game_name]["image_id"]
     security_group_id          = game_info[game_name]["security_group_id"]
