@@ -39,6 +39,18 @@ resource "aws_iam_role_policy" "for_lambda" {
 EOF
 }
 
+resource "aws_lambda_function" "instance_up_parent_lambda" {
+  filename      = "lambda/instance_up_parent/lambda_handler.zip"
+  function_name = "instance_up_parent"
+  role          = aws_iam_role.iam_for_lambda.arn
+  handler       = "instance_up_parent.lambda_handler"
+  timeout       = 60
+
+  source_code_hash = filebase64sha256("lambda/instance_up_parent/lambda_handler.zip")
+
+  runtime = "python3.7"
+}
+
 resource "aws_lambda_function" "instance_up_lambda" {
   filename      = "lambda/instance_up/lambda_handler.zip"
   function_name = "instance_up"

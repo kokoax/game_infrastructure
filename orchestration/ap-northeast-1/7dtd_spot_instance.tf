@@ -8,14 +8,14 @@ resource "aws_key_pair" "access_7dtd_instance" {
 
 }
 
-resource "aws_ebs_volume" "_7dtd" {
-  availability_zone = "ap-northeast-1d"
-  size = 20
-
-  tags = {
-    Name = "7dtd-volume"
-  }
-}
+#resource "aws_ebs_volume" "_7dtd" {
+#  availability_zone = "ap-northeast-1d"
+#  size = 20
+#
+#  tags = {
+#    Name = "7dtd-volume"
+#  }
+#}
 
 # Spot Instanceには起動前にEBSをアタッチできないので形だけ残しておく
 # 実際にはprovisioning時にcliからアタッチ実施している

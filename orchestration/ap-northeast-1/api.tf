@@ -78,7 +78,7 @@ resource "aws_api_gateway_resource" "proxy" {
 
 resource "null_resource" "method-delay" {
   provisioner "local-exec" {
-    command = "sleep 300"
+    command = "sleep 60000"
   }
   triggers = {
     response = aws_api_gateway_resource.proxy.id

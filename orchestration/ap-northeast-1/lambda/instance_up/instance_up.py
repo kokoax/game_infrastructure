@@ -29,6 +29,8 @@ game_name_tag     = "GameName"
 client = boto3.client('ec2')
 
 def lambda_handler(event, context):
+    print("start progress")
+    print(event)
     game_name = event.get('game')
     image_id                   = game_info[game_name]["image_id"]
     security_group_id          = game_info[game_name]["security_group_id"]
@@ -45,6 +47,7 @@ def lambda_handler(event, context):
             if tag['Key'] == game_name_tag and tag['Value'] == spot_instance_request_name:
                 return { 'statusCode': '500', 'body': 'spot instance already exists' }
 
+    print("request spot instance start")
     response = client.request_spot_instances(
             DryRun=False,
             SpotPrice=spot_price,
@@ -55,13 +58,15 @@ def lambda_handler(event, context):
                 'SecurityGroupIds': [security_group_id],
                 'InstanceType': instance_type,
                 'Placement': { 'AvailabilityZone': availability_zone },
-                'SubnetId': subnet_id
-                }
+                'SubnetId': subnet_id,
             )
+    print("request spot instance end")
     time.sleep(1)
+    print("sleeped 1s")
     request_body = response[list(response.keys())[0]]
     for request_id in request_body:
         response = client.create_tags(
                 Resources=[ request_id['SpotInstanceRequestId'] ],
                 Tags=[ { 'Key': game_name_tag, 'Value': spot_instance_request_name } ]
                 )
+    print("end progress")

@@ -17,8 +17,7 @@ def lambda_handler(event, context):
     instance_id = event['detail']['instance-id']
     response = client.describe_instances(InstanceIds=[instance_id])
     instance = response['Reservations'][0]['Instances'][0]
-    # url = get_decript_key(os.environ['ENCRYPTED_SLACK_WEBHOOK'])
-    url = 'https://hooks.slack.com/services/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'
+    url = 'https://hooks.slack.com/services/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'
     data = {
             'attachments': [{
                 'pretext': '<!here> インスタンスが停止しました',
