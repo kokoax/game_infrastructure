@@ -25,7 +25,7 @@ resource "aws_api_gateway_method" "instance_up" {
   authorization = "NONE"
 
   request_parameters = {
-    "method.request.querystring.game" = true
+    "method.request.querystring.text" = true
   }
 }
 
@@ -43,12 +43,12 @@ resource "aws_api_gateway_integration" "instance_up" {
   http_method = aws_api_gateway_method.instance_up.http_method
   integration_http_method = "POST"
   type = "AWS"
-  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.instance_up_lambda.arn}/invocations"
+  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.instance_up_parent_lambda.arn}/invocations"
 
   request_templates = {
     "application/json" = <<TEMPLATE
     {
-      "game": "$input.params('game')"
+      "game": "$input.params('text')"
     }
     TEMPLATE
   }
@@ -70,27 +70,11 @@ resource "aws_api_gateway_integration" "instance_down" {
 }
 
 # put-method-response
-resource "aws_api_gateway_resource" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api._game.id
-  parent_id   = aws_api_gateway_rest_api._game.root_resource_id
-  path_part   = "{proxy+}"
-}
-
-resource "null_resource" "method-delay" {
-  provisioner "local-exec" {
-    command = "sleep 60000"
-  }
-  triggers = {
-    response = aws_api_gateway_resource.proxy.id
-  }
-}
-
 resource "aws_api_gateway_method_response" "instance_up_200" {
   rest_api_id = aws_api_gateway_rest_api._game.id
   resource_id = aws_api_gateway_resource.instance_up.id
   http_method = aws_api_gateway_method.instance_up.http_method
   status_code = "200"
-  depends_on = [null_resource.method-delay]
 }
 
 resource "aws_api_gateway_method_response" "instance_up_500" {
@@ -106,7 +90,6 @@ resource "aws_api_gateway_method_response" "instance_down_200" {
   resource_id = aws_api_gateway_resource.instance_down.id
   http_method = aws_api_gateway_method.instance_down.http_method
   status_code = "200"
-  depends_on = [null_resource.method-delay]
 }
 
 resource "aws_api_gateway_method_response" "instance_down_500" {
@@ -173,7 +156,7 @@ resource "aws_api_gateway_deployment" "game_deployment" {
 # add-permission
 resource "aws_lambda_permission" "instance_up" {
   action = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.instance_up_lambda.function_name
+  function_name = aws_lambda_function.instance_up_parent_lambda.function_name
   principal = "apigateway.amazonaws.com"
 }
 

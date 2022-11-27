@@ -59,6 +59,7 @@ def lambda_handler(event, context):
                 'InstanceType': instance_type,
                 'Placement': { 'AvailabilityZone': availability_zone },
                 'SubnetId': subnet_id,
+                }
             )
     print("request spot instance end")
     time.sleep(1)
