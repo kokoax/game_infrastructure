@@ -12,19 +12,20 @@ game_info = {
         'spot_instance_request_name': '7dtd'
     },
     'ark': {
-        'image_id': 'ami-0611486aa63a5919d',
+        'image_id': 'ami-0569bbb5d2fa4711a',
         'security_group_id': 'ark_security_group',
         'subnet_id': 'subnet-0027d26b218ed92da',
-        'spot_instance_request_name': 'ark'
+        'spot_instance_request_name': 'ark',
     }
 }
 
-spot_price        = '0.15'
-instance_count    = 1
-request_type      = 'request'
-instance_type     = 'c5.xlarge'
-availability_zone = 'ap-northeast-1d'
-game_name_tag     = "GameName"
+spot_price           = '0.15'
+instance_count       = 1
+request_type         = 'request'
+instance_type        = 'c5.xlarge'
+availability_zone    = 'ap-northeast-1d'
+game_name_tag        = "GameName"
+iam_instance_profile = 'arn:aws:iam::886398035123:instance-profile/game_instance_profile'
 
 client = boto3.client('ec2')
 
@@ -60,6 +61,9 @@ def lambda_handler(event, context):
                 'InstanceType': instance_type,
                 'Placement': { 'AvailabilityZone': availability_zone },
                 'SubnetId': subnet_id,
+                'IamInstanceProfile': {
+                    'Arn': iam_instance_profile
+                    }
                 }
             )
     print("request spot instance end")
