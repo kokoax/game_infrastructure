@@ -7,14 +7,14 @@ resource "aws_key_pair" "access_ark_instance" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGZNv+xLdS6WTRQG/AogcKNxOqp7RAxbYPjNJ8UXnuN87K4Stz3AeFQuFdcfmbGBs1ju1FiEGnoNdMvlvPSr8YxDdwSOfBGLE8ZnhithcNZPpQJB1pWVJ/T8IvA+VOsigMyvSyvudIMX/ZqYgJUtH3dgngkh4LZ0kME69Hqp+VuDgCX4y1dI+6arCuXOWYoUACBOBXS1fakbz3XYeetMAdR594LMnfVHfroAGyLGn2gFpvxnlsGNkCgzpFrtfPUXVvNXl4aAxWAY1HR3lKCJI6gUtYzOOWNupqhBJh/f93rG8+Qg4O8W5F7A1uYhKkxFxDa/UJXs059G8o6Y1E4jMV y-tokoi@y-tokoi.voyagegroup.local"
 }
 
-resource "aws_ebs_volume" "ark" {
-  availability_zone = "ap-northeast-1d"
-  size = 100
-
-  tags = {
-    Name = "ark-volume"
-  }
-}
+# resource "aws_ebs_volume" "ark" {
+#   availability_zone = "ap-northeast-1d"
+#   size = 100
+# 
+#   tags = {
+#     Name = "ark-volume"
+#   }
+# }
 
 # Spot Instanceには起動前にEBSをアタッチできないので形だけ残しておく
 # 実際にはprovisioning時にcliからアタッチ実施している
