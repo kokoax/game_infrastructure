@@ -9,7 +9,7 @@ resource "aws_key_pair" "access_ark_instance" {
 
 resource "aws_ebs_volume" "ark" {
   availability_zone = "ap-northeast-1d"
-  size = 20
+  size = 100
 
   tags = {
     Name = "ark-volume"
