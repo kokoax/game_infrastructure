@@ -112,3 +112,15 @@ resource "aws_lambda_function" "notice_terminate_to_slack_lambda" {
 
   runtime = "python3.7"
 }
+
+resource "aws_lambda_function" "restart_instance" {
+  filename      = "lambda/restart_instance/lambda_handler.zip"
+  function_name = "restart_instance"
+  role          = aws_iam_role.iam_for_lambda.arn
+  handler       = "restart_instance.lambda_handler"
+  timeout       = 60
+
+  source_code_hash = filebase64sha256("lambda/restart_instance/lambda_handler.zip")
+
+  runtime = "python3.7"
+}
