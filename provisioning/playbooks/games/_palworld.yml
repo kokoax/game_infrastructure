@@ -1,0 +1,8 @@
+---
+- hosts: _palworld
+  vars_files:
+    - ../../hosts/games/vars/_palworld.yml
+  tasks:
+  roles:
+  - common
+  - games/_palworld
