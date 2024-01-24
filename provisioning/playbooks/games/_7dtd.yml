@@ -5,4 +5,5 @@
   tasks:
   roles:
   - common
+  - ebs
   - games/_7dtd
