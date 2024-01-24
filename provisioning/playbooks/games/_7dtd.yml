@@ -4,6 +4,6 @@
     - ../../hosts/games/vars/_7dtd.yml
   tasks:
   roles:
-  - common
-  - ebs
-  - games/_7dtd
+    - common
+    - ebs
+    - games/_7dtd
