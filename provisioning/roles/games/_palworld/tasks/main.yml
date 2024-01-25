@@ -1,3 +1,3 @@
 ---
-- import_tasks: ../../roles/games/_ark/tasks/packages.yml
-- import_tasks: ../../roles/games/_ark/tasks/game.yml
+- import_tasks: ../../roles/games/_palworld/tasks/packages.yml
+- import_tasks: ../../roles/games/_palworld/tasks/game.yml

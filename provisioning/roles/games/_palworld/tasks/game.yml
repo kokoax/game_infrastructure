@@ -4,6 +4,34 @@
       src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
       dest: /usr/local/bin
       remote_src: yes
+- name: Create directory for steam sdk64
+  file:
+    path: "/home/{{ user }}/.steam/sdk64"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    recurse: yes
+    mode: "775"
+- name: Install steam sdk
+  expect:
+    command: /usr/local/bin/steamcmd.sh
+    timeout: null
+    responses:
+      "Steam>":
+        - "login anonymous"
+        - "force_install_dir /home/{{ user }}/.steam/sdk64"
+        - "app_update 1007 validate"
+        - "exit"
+- name: Copy linux64/steamclient.so
+  copy:
+    src: "/home/{{ user }}/.steam/sdk64/linux64/steamclient.so"
+    dest: "/home/{{ user }}/.steam/sdk64/steamclient.so"
+- name: Change ownership steamclient.so
+  file:
+    path: "/home/{{ user }}/.steam/sdk64/steamclient.so"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "775"
 - name: Install palworld server
   expect:
     command: /usr/local/bin/steamcmd.sh
