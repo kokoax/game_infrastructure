@@ -36,6 +36,18 @@ resource "aws_iam_role_policy" "ec2_attach_volume" {
       "Resource": [
         "*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListObject",
+        "s3:ListBacket"
+      ],
+      "Resource": [
+        "*"
+      ]
     }
   ]
 }

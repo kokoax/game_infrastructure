@@ -9,6 +9,6 @@ client = boto3.client('ec2')
 def lambda_handler(event, context):
     client.reboot_instances(
         InstanceIds=[
-            'i-0945fcb38c50b94ca'
+            'i-079d948ff8f478b20'
         ]
     )

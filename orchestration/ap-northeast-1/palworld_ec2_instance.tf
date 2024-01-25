@@ -4,11 +4,12 @@ resource "aws_key_pair" "access_palworld_instance" {
 }
 
 resource "aws_instance" "_palworld_ec2_instance" {
-  ami           =	"ami-0218d08a1f9dac831" # amazonlinux2
-  instance_type = "t2.micro" # 後で変える
+  ami           =	"ami-0611486aa63a5919d"
+  instance_type = "m5.xlarge"
   subnet_id     = aws_subnet._palworld.id
   vpc_security_group_ids = [aws_security_group._palworld_security_group.id]
   key_name = aws_key_pair.access_palworld_instance.id
+  iam_instance_profile = aws_iam_instance_profile.game_instance_profile.name
 
   root_block_device {
     volume_size = 20
