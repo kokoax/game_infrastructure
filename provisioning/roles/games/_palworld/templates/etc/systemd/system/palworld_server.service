@@ -1,0 +1,11 @@
+[Unit]
+Description = palworld server
+After = network.target
+
+[Service]
+Type = simple
+User =  {{ user }}
+ExecStart = /home/game-user/palworld_server/PalServer.sh
+
+[Install]
+WantedBy = multi-user.target

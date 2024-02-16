@@ -4,5 +4,6 @@
     - ../../hosts/games/vars/_ark.yml
   tasks:
   roles:
-  - common
-  - games/_ark
+    - common
+    - ebs
+    - games/_ark

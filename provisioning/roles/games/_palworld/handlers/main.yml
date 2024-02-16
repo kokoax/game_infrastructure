@@ -1,0 +1,5 @@
+---
+- name: Restart palworld_server
+  systemd:
+    name: palworld_server
+    state: restarted
